@@ -30,7 +30,8 @@ public class FileUtil {
                     for (File f : files) {
                         // 是文件就调用复制文件方法 是目录就继续调用复制目录方法
                         if (f.isFile()) {
-                            copyFile(f, new File(newDir, f.getName()));
+                        	File file = new File(newDir, f.getName());
+                        	copyFile(f, file);
                         } else if (f.isDirectory()) {
                             copyDir(oldDir + File.separator + f.getName(),
                                     newDir + File.separator + f.getName());

@@ -20,9 +20,10 @@ public class NavigationApplication {
 
 	public static void initData() {
 		try {
+			  FileUtil.copyDir("/home/app/static", "/app/static");
+			
 			  File destDir = new File("/app/db/app.db");
 			  if(!destDir.exists()) {
-				  FileUtil.copyDir("/home/app/static", "/app/static");
 				  FileUtil.copyDir("/home/app/db", "/app/db");
 			  }
 		} catch (Exception e) {
