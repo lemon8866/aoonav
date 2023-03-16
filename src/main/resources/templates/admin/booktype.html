@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title>书签类型</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" href="/static/css/font.css">
+        <link rel="stylesheet" href="/static/css/xadmin.css">
+        <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/static/js/xadmin.js"></script>
+        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        
+        <!--[if lt IE 9]>
+          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        
+        <style type="text/css">
+        	.labelbox{
+        		 display: inline-block;
+        		 min-width: 76px;
+        		 height: 36px; 
+        		 line-height: 36px; 
+        		 text-align: center; 
+        		 background: #0284da; 
+        		 color: #fff; 
+        		 border-radius: 19px;
+        		 cursor: pointer;
+        		 text-decoration: none;
+        		 margin: 15px;
+        	}
+        	.labelbox:hover{
+        		background-image:linear-gradient(to right,red 0%,red 50%,red 50%,red 100%);
+        		background-size:200% 100%;
+        		background-position: 100%; 
+        		animation:2s delstatus ease-out forwards;
+        	}
+        	@keyframes delstatus{
+        		from{
+        			background-position: 100%; 
+        		}
+        		to{
+        			background-position: 0%; 
+        		}
+        	}
+        </style>
+    </head>
+    <body style=" padding-top: 4%;">
+    	<div class="layui-row">
+    		  <label  class="layui-form-label" style="padding-top: 6px;">书签类型</label>
+    		  <div class="layui-input-inline">
+                  <input type="text" id="labelname" name="labelname"  autocomplete="off" class="layui-input">
+              </div>&nbsp;&nbsp;&nbsp;
+               <button class="layui-btn" id="submitData" lay-submit="">增加</button></div>
+    	</div>
+    	
+    	<div class="labelLsit" style=" display: inline-block; padding: 90px 45px; " >
+    		<font th:each="data,index:${list}">
+    		 <div class="labelbox" th:data-id="${data.id}" th:text="${data.typename}"></div>
+    		</font>
+    	</div>
+    
+    </body>
+    <script>
+    	$(function(){
+    		layui.use(['form', 'layer'],function() {
+		       	$ = layui.jquery;
+		        var form = layui.form,
+		        layer = layui.layer;
+		 });
+    		submitData();
+    		delData();
+    	})
+    	function delData(){
+    		$('.labelbox').click(function(){
+    			var dataid = $(this).attr("data-id");
+    			
+				layer.confirm('是否删除标签', {
+					  btn: ['确认','取消'], //按钮
+					}, function(){
+				       $.get("/admin/api/delbookType?id="+dataid,function(res){
+				              layer.msg('已删除!',{icon:1,time:1000});
+				              setTimeout(function(){window.location.reload();}, 1500);
+						})
+						return false;
+					}, function(){
+						
+						return false;
+					});
+    			
+    		})
+    	}
+    	function submitData(){
+    		$('#submitData').click(function(){
+    			var labelname = $('#labelname').val();
+    			var option = {
+    					typename:labelname
+    			}
+	          	$.post("/admin/api/savebookType",option,function(result){
+	          		console.log(result)
+	          		layer.msg('添加成功',{icon:1,time:1000});
+	          		setTimeout(function(){window.location.reload();}, 1500);
+	            });
+    		})
+    	}
+    	
+    </script>
+</html>

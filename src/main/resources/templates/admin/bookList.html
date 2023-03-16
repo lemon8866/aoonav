@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title>用户管理</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" href="/static/css/font.css">
+        <link rel="stylesheet" href="/static/css/xadmin.css">
+        <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/static/js/xadmin.js"></script>
+        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        
+        <!--[if lt IE 9]>
+          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                    
+                    <div class="layui-card-body ">
+                            <form class="layui-form layui-col-space5">
+                                <div class="layui-input-inline layui-show-xs-block">
+		                    		   <select id="typename">
+		                    		   	<option value="">请选择</option>
+		                    		   <option value="-1">所有</option>
+		                                <font th:each="data,index:${typeList}">
+		                                <option  th:text="${data.typename}"  th:value="${data.id}" ></option>
+		                               </font>
+		                            </select> 
+                                </div>
+                               <div class="layui-input-inline layui-show-xs-block">
+  									<select id="labelname">
+  										 <option value="">请选择</option>
+  										 <option value="-1">所有</option>
+		                                <font th:each="data,index:${labelList}">
+		                                <option  th:text="${data.labelname}"  th:value="${data.id}"></option>
+		                               </font>
+                           			 </select>   
+                                </div>
+                                <div class="layui-input-inline layui-show-xs-block">
+  									<select id="bookmarkrule">
+  										<option value="">请选择</option>
+  										<option value="-1">所有</option>
+		                                <option  value="0">登录可见</option>
+		                                <option  value="1">游客可见</option>
+                           			 </select>   
+                                </div>
+                                <div class="layui-input-inline layui-show-xs-block">
+                                    <input type="text" id="bookmarkname" name="bookmarkname" placeholder="书签名称" autocomplete="off" class="layui-input"></div>
+                                <div class="layui-input-inline layui-show-xs-block">
+                                <button type="button" class="layui-btn layui-btn-normal search">搜索</button>
+                                <button type="button" class="layui-btn layui-btn-normal initList">重置列表</button>
+                                </div>
+                            </form>
+                        </div>
+                    	
+                    
+                        <div class="layui-card-header">
+                            <button class="layui-btn" onclick="xadmin.open('添加用户','./addBook',600,600)"><i class="layui-icon"></i>添加</button>
+                        </div>
+                        <div class="layui-card-body layui-table-body layui-table-main">
+							<table class="layui-hide" id="projectList" lay-filter="projectList"></table>
+                        </div>
+                        <div class="layui-card-body ">
+                            <div class="page" id="page">
+         
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </body>
+	<script type="text/html" th:inline="none" id="barLineTool">
+  		<a class="layui-btn layui-btn-danger layui-btn-xs delData" lay-event="del">删除</a>
+	</script>     
+	<script  th:inline="none">
+    var table;
+     $(function(){
+    	 initLayer();
+    	 loadTable();
+    	 search();
+    	 initList();
+     })
+     function initList(){
+    	 $('.initList').click(function(){
+    	     window.location.reload();
+    	 })
+     }
+     function initLayer(){
+    	 layui.use(['laydate','form'], function(){
+             var laydate = layui.laydate;
+             var  form = layui.form;
+
+             form.on('submit(add)',
+                     function(data) {
+                         console.log(data);
+         	           return false;
+           			 });
+
+
+           });
+ 
+     }
+     function search(){
+    		$('.search').click(function(){
+    			 var option = {}
+    			 var  typename = $('#typename').val();
+    			 if(typename != "" && typename != "-1"){
+    				 option['typeid']= typename;
+    			 }
+    			 var  labelname = $('#labelname').val();
+    			 if(labelname != "" && labelname != "-1"){
+    				 option['labelid']= labelname;
+    			 }
+    			 var  bookmarkrule = $('#bookmarkrule').val();
+    			 if(bookmarkrule != "" && bookmarkrule != "-1"){
+    				 option['bookmarkrule']= bookmarkrule;
+    			 }
+    			 var  bookmarkname = $('#bookmarkname').val();
+    			 if(bookmarkname != "" && bookmarkname != "-1"){
+    				 option['bookmarkname']= bookmarkname;
+    			 }
+    			 console.log(option);
+    	         table.reload('projectList', {
+    	             page: {
+    	                 curr:1
+    	             }, 
+    	 			 method:'post',
+    	 			 url: '/admin/api/findBookList',
+    	             where: option
+    	         })
+    		})
+     }
+     function loadTable(){
+    		layui.use('table', function(){
+    			  table = layui.table;
+    			  table.render({
+    				id:'projectList',
+    				elem: '#projectList',
+    				height: 700,
+    				method:'post',
+    				url: '/admin/api/findBookList',
+    				limit:15,
+    				request: {
+    				     pageName: 'page',
+    				     limitName: 'limit'
+    				},
+    				page: { 
+    			        layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+    			        limits:[15,30,45],
+    			        first: false,
+    			        last: false,
+    			     },
+    			     cols: [[ 
+    			    	 {field: 'id', title: 'ID', width:80},
+    			    	 {field: 'typename', title: '书签类型', width:180},
+    			    	 {field: 'labelname', title: '标签名称', width:180},
+    			    	 {field: 'iconrul', title: 'ICONURL', width:180},
+    			    	 {field: 'bookmarkname', title: '书签名称', width:80},
+    			    	 {field: 'bookmarkurl', title: '书签URL', width:180},
+    			    	 {field: 'bookmarkdesc', title: '书签简介', width:180},
+    			    	 {field: 'bookmarkrule', title: '书签权限', width:80,templet:function(type){console.log(type);if(type.bookmarkrule=="0"){return "登录可见"} return "游客可见"}},
+    			    	 {field: 'createtime', title: '创建时间', width:180},
+    			    	 {fixed: 'right', title:'操作',  minWidth: 180, toolbar: '#barLineTool'}
+    			     ]],
+    			     title: '书签表'	,
+    			     parseData:function(res){
+    			    	 console.log(res);
+    			    	 return {
+    			             "code": 0, //解析接口状态
+    			             "msg": "", //解析提示文本
+    			             "count": res.record.totalElements, //解析数据长度
+    			             "data": res.record.content
+    			         };
+    			     }
+    			  });
+    			  
+    			  
+    			  //监听行工具事件
+    			  table.on('tool(projectList)', function(obj){
+    			    var data = obj.data;
+    			    console.log(obj)
+    			    if(obj.event === 'del'){
+    			      layer.confirm('要删除'+obj.data.bookmarkname+"书签吗", function(index){
+    			        //调用接口删除
+    			        var id =obj.data.id;
+    			        $.get("/admin/api/delBookMark?id="+id,function(res){
+    			        	if(res.resCode =="000001"){
+    			        		layer.msg(res.message)
+    			        		setTimeout(function(){
+    								 window.location.reload();
+    							},1500)
+    			        	}else{
+    			        		layer.alert(res.message);
+    			        	}
+    			        })
+    			        layer.close(index);
+    			      });
+    			    }
+    			  });
+    			  
+    			  
+    			});
+    	}
+
+     function findBookList(){
+       	$.post("/admin/api/findBookList",null,function(result){
+      		if(result.resCode ="000001"){
+          		console.log(result);
+          	 var html ="";
+          	 var list = result.record.content;
+          	 for(var i = 0;i<list.length;i++){
+          		 html +='<tr>'
+          		      +'<td>'+list[i].iconrul+'</td>'
+          		      +'<td>'+list[i].typename+'</td>'
+          		      +'<td>'+list[i].labelname+'</td>'
+          		      +'<td>'+list[i].bookmarkname+'</td>'
+          		      +'<td>'+list[i].bookmarkurl+'</td>'
+          		      +'<td>'+list[i].bookmarkdesc+'</td>'
+          		      +'<td>'+list[i].bookmarkrule == '0'?"登录可见":"游客可见"+'</td>'
+          		      +'<td>'+list[i].createtime+'</td>'
+          		      +'<td class= "td-manage"><a title="删除" onclick="bookMark_del(this,'+list[i].id+')" href="javascript:;"><i class="layui-icon">删除</i></a></td>'
+          		      +'</tr>'
+          	 }	
+          	 $('.tableContent').html(html);
+           	 layui.use(['laypage','form'], function(){
+           		 var laypage = layui.laypage;
+                 var  form = layui.form;
+           		 laypage.render({
+           		    elem: 'page' ,
+           		    count: result.record.totalPages,
+           		 	limit: result.record.size,
+           		  });
+                 // 监听全选
+                 form.on('checkbox(checkall)', function(data){
+
+                   if(data.elem.checked){
+                     $('tbody input').prop('checked',true);
+                   }else{
+                     $('tbody input').prop('checked',false);
+                   }
+                   form.render('checkbox');
+                 }); 
+
+               })
+      		}else{
+          		layer.msg(result.message, {
+        			  icon: success,
+        			  shade: 0.01,
+        			  time:5
+        			  
+          		})
+      		}
+            
+        });
+    	 
+     }
+     
+      function bookMark_del(obj,id){
+          layer.confirm('确认要删除吗？',function(index){
+              //发异步删除数据
+	          $.get("/admin/api/delBookMark?id="+id,function(res){
+	              $(obj).parents("tr").remove();
+	              layer.msg('已删除!',{icon:1,time:1000});
+			  })
+       
+          });
+      }
+    </script>
+</html>

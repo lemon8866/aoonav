@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title th:text="${sitename}"></title>
+		<link rel="Shortcut icon" th:href="${siteicon}">
+		<link rel="stylesheet" type="text/css" href="/static/front/css/default.css">
+		<link rel="stylesheet" type="text/css" href="/static/front/css/search-form.css">
+		<link rel="stylesheet" type="text/css" href="/static/front/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/static/front/css/index.css" />
+		<script type="text/javascript" src="/static/front/js/jquery-3.3.1.min.js"></script>
+	    <script type="text/javascript" src="/static/front/js/search.js"></script>
+	    <script type="text/javascript" src="/static/front/js/search_ajx.js"></script>
+	</head>
+
+	<body>
+        <div id="web">
+        	<!--搜索框-->
+			<form onsubmit="submitFn(this, event);">
+		        <div class="search-wrapper">
+			        <div class="input-holder">
+				        <input type="text" id="txt" class="search-input" placeholder="输入关键词" autocomplete="false" />
+				    <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+			        </div>
+			    <span class="close" onclick="searchToggle(this, event);"></span>
+			        <div class="result-container">
+			        </div>
+		        </div>
+		        <div id="search_ajx"><ul id="list" style="display:none;"></ul></div>
+	        </form>
+	        
+	     
+			
+	        <!--搜索框-->
+		</div>
+		<!--快捷搜索栏-->
+		<div id="kj">
+			<div id="jk_a">
+				<ul id="ul1">
+
+				</ul><br>
+			</div>
+			<div id="kj_z">
+
+			
+
+
+			</div>
+				
+			</div>
+		</div>
+		
+		<div class="typeSwitch" 　th:if="${session.user_login_session != null}">
+			<div class="theme">书签类别:
+			<font class="labelbox">所有</font>
+			<font th:each="data,index:${list}">
+    		 <div style="display: inline-block;" class="labelbox" th:data-id="${data.id}" th:text="${data.typename}"></div>
+    		</font>
+			</div>
+			<br />
+		</div>
+		
+		<div class="footer">
+			<div class="theme" onclick="window.open('https://github.com/xiaolanqqai/xiaolanqqai.github.io','_self')">主题:<font>xiaolan</font></div>
+			<div th:if="${session.user_login_session == null}" class="login" onclick="window.open('/admin/login','_self')">登录</div>
+		</div>
+        <!--输入框特效-->
+        <script type="text/javascript" src="/static/front/js/activate-power-mode.js"></script>  
+        <script type="text/javascript" src="/static/front/js/text.js"></script>
+        <script  th:inline="none">
+        	$(function(){
+        		getNavData();
+        		$('.labelbox').click(function(){
+        			var typeid = $(this).attr("data-id");
+        			getNavData(typeid);
+        		})
+        	})
+        	function getNavData(type){
+        	   var url = "/getNavData";
+        	   if(type !=null){
+        		   url = url+"?typeid="+type;
+        	   }
+ 		       $.get(url,function(res){
+ 		    	   console.log(res);
+ 		    	   if(res.resCode =="333333"){
+ 		    		  window.location.href="/nurule" ;
+					  return;
+ 		    	   }
+		           if(res.resCode == "000001"){
+		        	   var tabHtml = "";
+		        	   var LabelHtml = "";
+		        	   var data = res.record;
+		        	   var index = 0;
+		        	   for(var k in data){
+		        		   var key = k;
+		        		   var label =  key.split("_")[1];
+			        	   tabHtml+="<li class='labelName' data-index='"+index+"'><a>"+label+"</a></li>"
+			        	   index++;
+			        	   var list =  data[k];
+			        	   LabelHtml += '<ul class="top11">';
+			        	   for(var i = 0;i<list.length;i++){
+			        		   LabelHtml+='<li class="kj_li"><a class="kj_a" href="'+list[i].bookmarkurl+'" rel="nofollow" target="_blank"><div class="kj_icon" style="background-image:url('+list[i].iconrul+');"></div>'+list[i].bookmarkname+'</a></li>'
+			        	   }
+			        	   LabelHtml += '</ul>';
+		        	   }
+		    
+		        	   $('#ul1').html(tabHtml);
+		        	   $('#kj_z').html(LabelHtml);
+		        	   $('#kj_z').find("ul").eq(0).removeClass("top11");
+		        	   labelSwitch();
+		           }
+				})
+        	}
+        
+        	function labelSwitch(){
+        		 $(".labelName").mouseover(function(){
+        	        var index =   $(this).attr('data-index')
+        	        $('#kj_z').find("ul").addClass("top11"); 
+        	        $('#kj_z').find("ul").eq(index).removeClass("top11");
+        	     })
+        	}
+        
+        
+        
+        
+        </script>
+        <!--输入框特效-->
+	</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title>用户管理</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" href="/static/css/font.css">
+        <link rel="stylesheet" href="/static/css/xadmin.css">
+        <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/static/js/xadmin.js"></script>
+        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        
+        <!--[if lt IE 9]>
+          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body style=" padding-top: 4%;">
+		<div class="layui-fluid">
+            <div class="layui-row">
+                <input type="hidden" id="siteid" th:value="${site.id}">
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <label  class="layui-form-label"><span >站点名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="sitename" name="sitename"  autocomplete="off" class="layui-input" th:value="${site.sitename}"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label  class="layui-form-label"><span >站点ICON</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="siteicon" name="siteicon" autocomplete="off" class="layui-input" th:value="${site.siteicon}"></div>
+                    </div>
+                    
+                    <div class="layui-form-item">
+                        <label  class="layui-form-label"><span >站点介绍</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="sitedesc" name="sitedesc" autocomplete="off" class="layui-input" th:value="${site.sitedesc}"></div>
+                    </div>
+                    
+                    <div class="layui-form-item">
+                        <label for="siterule" class="layui-form-label">站点权限</label>
+                        <div class="layui-input-inline">
+                            <select id="siterule" name="siterule">
+                                <option value="0" th:selected="${site.siterule} eq '0'">仅个人(需要登录)</option>
+                                <option value="1" th:selected="${site.siterule} eq '1'">游客标签可见</option>
+                            </select>    
+                        </div>
+                    </div>
+                  
+                    <div class="layui-form-item">
+                        <label  class="layui-form-label"></label>
+                        <button class="layui-btn" id="submitData" type="button">修改</button></div>
+                        
+                     <div class="layui-form-item">
+                        <label  class="layui-form-label" style=" width: 20%; text-align: left; "> 
+                        		  默认情况下:站点权限为 仅个人(需要登录)<br>
+                                  当权限为游客可见时,新增书签类型为游客时 可见<br>
+                                  目前站点icon  只能填写图床地址
+                                  </label>
+                    </div>    
+                </form>
+            </div>
+        </div>
+    </body>
+    <script>
+    
+    	$(function(){
+    		 layui.use(['form', 'layer'],function() {
+    		       	$ = layui.jquery;
+    		        var form = layui.form,
+    		        layer = layui.layer;
+    		 });
+    		submitData();
+    	})
+	    function submitData(){
+    		$('#submitData').click(function(){
+    			var siteid = $('#siteid').val();
+    			var sitename = $('#sitename').val();
+    			var siteicon = $('#siteicon').val();
+    			var sitedesc = $('#sitedesc').val();
+    			var siterule = $('#siterule').val();
+    			var option = {
+    					id:siteid,
+    					sitename:sitename,
+    					siteicon:siteicon,
+    					sitedesc:sitedesc,
+    					siterule:siterule
+    			}
+    			console.log(option)
+    			layer.load();
+    			$.post("/admin/api/saveSite",option,function(result){
+    				layer.closeAll();
+    				if(result.resCode ="000001"){
+    					layer.msg(result.message, {
+	            			  shade: 0.01,
+	            			  time:3000
+	            		})
+    				}
+    				
+    			})
+    		})
+    		
+    	}
+    </script>
+</html>
