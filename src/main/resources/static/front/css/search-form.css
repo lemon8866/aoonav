@@ -45,7 +45,6 @@ body {padding: 0px; margin:0px; background-position: center; background-size: co
     box-sizing: border-box;
     border:none;
     outline:none;
-    font-family:"Open Sans", Arial, Verdana;
     font-size: 16px;
     font-weight: 400;
     line-height: 20px;
@@ -184,7 +183,6 @@ body {padding: 0px; margin:0px; background-position: center; background-size: co
     top:80px;
     left:0px;
     text-align: center;
-    font-family: "Open Sans", Arial, Verdana;
     font-size: 14px;
     display:none;
     color:#B7B7B7;
