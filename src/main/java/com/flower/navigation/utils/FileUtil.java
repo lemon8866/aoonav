@@ -31,11 +31,28 @@ public class FileUtil {
                         // 是文件就调用复制文件方法 是目录就继续调用复制目录方法
                         if (f.isFile()) {
                         	File file = new File(newDir, f.getName());
-                        	copyFile(f, file);
+                        	if(!file.exists()) {
+                        		copyFile(f, file);
+                        	}
+                        	
                         } else if (f.isDirectory()) {
                             copyDir(oldDir + File.separator + f.getName(),
                                     newDir + File.separator + f.getName());
                         }
+                    }
+                }
+            }else {
+                File[] files = srcDir.listFiles();
+                for (File f : files) {
+                    // 是文件就调用复制文件方法 是目录就继续调用复制目录方法
+                    if (f.isFile()) {
+                    	File file = new File(newDir, f.getName());
+                     	if(!file.exists()) {
+                    		copyFile(f, file);
+                    	}
+                    } else if (f.isDirectory()) {
+                        copyDir(oldDir + File.separator + f.getName(),
+                                newDir + File.separator + f.getName());
                     }
                 }
             }
@@ -82,4 +99,5 @@ public class FileUtil {
             }
         }
     }
+    
 }
