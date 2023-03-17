@@ -68,10 +68,12 @@ public class PageController {
 	public String addUser() {
 		return "admin/addUser";
 	}
-	@RequestMapping(value = "/updatepassword")
-	public String updatepassword() {
-		return "admin/updatepassword";
+	
+	@RequestMapping(value = "/addBookLabel")
+	public String addBookLabel() {
+		return "admin/addBookLabel";
 	}
+	
 	
 	@RequestMapping(value = "/site")
 	public String site(Model model) {

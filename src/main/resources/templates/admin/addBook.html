@@ -9,8 +9,10 @@
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <link rel="stylesheet" href="/static/css/font.css">
         <link rel="stylesheet" href="/static/css/xadmin.css">
+        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript" src="/static/lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="/static/js/xadmin.js"></script>
+        <script type="text/javascript" src="/static/js/common.js"></script>
         <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
         <!--[if lt IE 9]>
             <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -50,12 +52,31 @@
                             <input type="text" id="iconrul"  autocomplete="off" class="layui-input">
                             <div class="layui-form-mid layui-word-aux">暂时仅支持图床地址</div>
                         </div>
+                       <div class="layui-input-inline" style=" width: 50px; ">
+			            <img id="iconrulpre" alt=""  width="25px"  style=" position: relative; ">
+			            </div>
+			              <div class="layui-input-inline">
+			            	&nbsp;<button type="button" class="layui-btn" id="uploadBtu">上传</button>
+			            </div>
+                      
                     </div>
                     
                     <div class="layui-form-item">
                         <label  class="layui-form-label"> 书签名称</label>
                         <div class="layui-input-inline">
                              <input type="text" id="bookmarkname"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label  class="layui-form-label"> 字体色</label>
+                        <div class="layui-input-inline">
+                             <input type="text" id="bookmarkfontcolor"  autocomplete="off" class="layui-input" value="#fff">
+                        </div>
+                    </div>
+                     <div class="layui-form-item">
+                        <label  class="layui-form-label">背景色</label>
+                        <div class="layui-input-inline">
+                             <input type="text" id="bookmarkbgcolor"  autocomplete="off" class="layui-input" value="#61a6ab30">
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -88,56 +109,75 @@
                 </form>
             </div>
         </div>
-        <script>layui.use(['form', 'layer','jquery'],
-            function() {
-                $ = layui.jquery;
-                var form = layui.form,
-                layer = layui.layer;
-	
+        <script>
+        	$(function(){
+        		initLayui();
+        		uploadData();
+        		
+        		
+        	})
+        	function uploadData(){
+	    		uploadFile("#uploadBtu",function(res){
+	    			if(res != null && res.resCode == "000001"){
+	        			$('#iconrul').val(res.record);
+	            		$('#iconrulpre').attr("src",res.record);
+	        		}
+	    		});    	
+    	    }
+        	function initLayui(){
+        		layui.use(['form', 'layer','jquery'],function() {
+        	                $ = layui.jquery;
+        	                var form = layui.form,
+        	                layer = layui.layer;
+        		
 
-                //监听提交
-                form.on('submit(add)',
-                function(data) {
-                    var option ={
-                    		typeid:$('#typename').val(),
-                    		typename:$('#typename').find("option:selected").text(),
-                    		labelid:$('#labelname').val(),
-                    		labelname:$('#labelname').find("option:selected").text(),
-                    		iconrul:$('#iconrul').val(),
-                    		bookmarkname:$('#bookmarkname').val(),
-                    		bookmarkurl:$('#bookmarkurl').val(),
-                    		bookmarkdesc:$('#bookmarkdesc').val(),
-                    		bookmarkrule:$('#bookmarkrule').val(),
-                    		
-                    }
-    	          	$.post("/admin/api/addBookMark",option,function(result){
-    	          		console.log(result)
-    	          		if(result.resCode =="000001"){
-    	              		layer.msg(result.message, {
-    	            			  shade: 0.01,
-    	            			  time:3000
-    	            		},function(){
-    	      					setTimeout(function(){
-    	                            xadmin.close();
-    	                            xadmin.father_reload();
-    	      					},1500)
-    	            		});
-    	          		}else{
-    	              		layer.msg(result.message, {
-    	            			  icon: "error",
-    	            			  shade: 0.01,
-    	            			  time:5
-    	            			  
-    	              		})
-    	          		}
-    	                
-    	            });
-    	          	
+        	                //监听提交
+        	                form.on('submit(add)',
+        	                function(data) {
+        	                    var option ={
+        	                    		typeid:$('#typename').val(),
+        	                    		typename:$('#typename').find("option:selected").text(),
+        	                    		labelid:$('#labelname').val(),
+        	                    		labelname:$('#labelname').find("option:selected").text(),
+        	                    		iconrul:$('#iconrul').val(),
+        	                    		bookmarkname:$('#bookmarkname').val(),
+        	                    		bookmarkurl:$('#bookmarkurl').val(),
+        	                    		bookmarkdesc:$('#bookmarkdesc').val(),
+        	                    		bookmarkrule:$('#bookmarkrule').val(),
+        	                    		bookmarkbgcolor:$('#bookmarkbgcolor').val(),
+        	                    		bookmarkfontcolor:$('#bookmarkfontcolor').val(),
+        	                    		
+        	                    }
+        	    	          	$.post("/admin/api/addBookMark",option,function(result){
+        	    	          		console.log(result)
+        	    	          		if(result.resCode =="000001"){
+        	    	              		layer.msg(result.message, {
+        	    	            			  shade: 0.01,
+        	    	            			  time:500
+        	    	            		},function(){
+        	    	      					setTimeout(function(){
+        	    	                            xadmin.close();
+        	    	                            xadmin.father_reload();
+        	    	      					},500)
+        	    	            		});
+        	    	          		}else{
+        	    	              		layer.msg(result.message, {
+        	    	            			  icon: "error",
+        	    	            			  shade: 0.01,
+        	    	            			  time:5
+        	    	            			  
+        	    	              		})
+        	    	          		}
+        	    	                
+        	    	            });
+        	    	          	
 
-                    return false;
-                });
+        	                    return false;
+        	                });
 
-            });</script>
+        	            });
+        	}
+         	</script>
   
     </body>
 

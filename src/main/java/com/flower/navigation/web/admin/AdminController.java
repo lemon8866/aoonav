@@ -119,6 +119,12 @@ public class AdminController {
 		return bookMarkLabelService.saveData(data);
 	}
 	
+	@PostMapping(value = "/findbookLabel")
+	public AjaxEntity findbookLabel(BookmarkLabelEntity data) {
+		return bookMarkLabelService.findPage(data);
+	}
+	
+	
 	@GetMapping(value = "/delbookLabel")
 	public AjaxEntity delbookLabel(BookmarkLabelEntity data,HttpServletRequest request) {
 		return bookMarkLabelService.delData(data);

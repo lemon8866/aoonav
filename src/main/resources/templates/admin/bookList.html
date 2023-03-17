@@ -11,7 +11,7 @@
         <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="/static/js/xadmin.js"></script>
         <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-        
+        <script type="text/javascript" src="/static/js/common.js"></script>
         <!--[if lt IE 9]>
           <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
           <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -63,7 +63,7 @@
                     	
                     
                         <div class="layui-card-header">
-                            <button class="layui-btn" onclick="xadmin.open('添加用户','./addBook',600,600)"><i class="layui-icon"></i>添加</button>
+                            <button class="layui-btn" onclick="xadmin.open('添加用户','./addBook',650,600)"><i class="layui-icon"></i>添加</button>
                         </div>
                         <div class="layui-card-body layui-table-body layui-table-main">
 							<table class="layui-hide" id="projectList" lay-filter="projectList"></table>
@@ -78,7 +78,83 @@
             </div>
         </div> 
     </body>
+    <div class="updateData layui-form" style="display: none;padding: 20px;">
+	    <input class="optionid" type="hidden">
+	   <div class="layui-inline">
+	      <label class="layui-form-label">书签类别</label>
+	      <div class="layui-input-inline">
+       		   <select class="typename">
+                   <font th:each="data,index:${typeList}">
+                   <option  th:text="${data.typename}"  th:value="${data.id}" ></option>
+                  </font>
+               </select> 
+        </div>
+	    </div>
+	    <div class="layui-inline">
+	          <label class="layui-form-label">书签标签</label>
+               <div class="layui-input-inline">
+					<select class="labelname">
+                         <font th:each="data,index:${labelList}">
+                         <option  th:text="${data.labelname}"  th:value="${data.id}"></option>
+                        </font>
+              		</select>   
+               </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">书签名称</label>
+	      <div class="layui-input-inline">
+	        <input  type="text" name="bookmarkname"  autocomplete="off" class="bookmarkname layui-input">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">书签图标</label>
+	      <div class="layui-input-inline">
+	        <input  type="text" name="iconrul"  autocomplete="off" class="iconrul layui-input">
+	      </div>
+          <div class="layui-input-inline">
+            <img id="iconrulpre" alt=""  width="25px"  style=" position: relative; ">
+            </div>
+              <div class="layui-input-inline">
+            	&nbsp;<button type="button" class="layui-btn" id="uploadBtu">上传</button>
+            </div>
+	    </div>
+	   	<div class="layui-inline">
+	      <label class="layui-form-label">书签地址</label>
+	      <div class="layui-input-inline">
+	        <input  type="text" name="bookmarkurl"  autocomplete="off" class="bookmarkurl layui-input">
+	      </div>
+	    </div>
+	   	<div class="layui-inline">
+	      <label class="layui-form-label">书签简介</label>
+	      <div class="layui-input-inline">
+	        <input  type="text" name="bookmarkdesc"  autocomplete="off" class="bookmarkdesc layui-input">
+	      </div>
+	    </div>
+	   <div class="layui-inline">
+	      <label class="layui-form-label">书签权限</label>
+	       <div class="layui-input-inline layui-show-xs-block">
+			<select class="bookmarkrule">
+                  <option  value="0">登录可见</option>
+                  <option  value="1">游客可见</option>
+            </select>   
+          </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">字体色</label>
+	      <div class="layui-input-inline">
+	        <input  type="text" name="bookmarkfontcolor"  autocomplete="off" class="bookmarkfontcolor layui-input">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">背景色</label>
+	      <div class="layui-input-inline">
+	        <input  type="text" name="bookmarkbgcolor"  autocomplete="off" class="bookmarkbgcolor layui-input">
+	      </div>
+	    </div>
+	    <div class="buttondiv" style=" padding-left: 5%; padding-top: 5%; "><button type="button" class="layui-btn">保存信息</button></div>
+	</div>
 	<script type="text/html" th:inline="none" id="barLineTool">
+		<a class="layui-btn layui-btn-xs editData" lay-event="edit">编辑</a>
   		<a class="layui-btn layui-btn-danger layui-btn-xs delData" lay-event="del">删除</a>
 	</script>     
 	<script  th:inline="none">
@@ -88,7 +164,50 @@
     	 loadTable();
     	 search();
     	 initList();
+    	 updateData();
+    	 uploadData();
      })
+     
+     function uploadData(){
+    		uploadFile("#uploadBtu",function(res){
+    			if(res != null && res.resCode == "000001"){
+        			$('.iconrul').val(res.record);
+            		$('#iconrulpre').attr("src",res.record);
+        		}
+    		});    	
+    	}
+    function updateData(){
+			$('.buttondiv button').click(function(){
+				var option ={
+						id:$('.optionid').val(),
+                		typeid:$('.typename').val(),
+                		typename:$('.typename').find("option:selected").text(),
+                		labelid:$('.labelname').val(),
+                		labelname:$('.labelname').find("option:selected").text(),
+                		iconrul:$('.iconrul').val(),
+                		bookmarkname:$('.bookmarkname').val(),
+                		bookmarkurl:$('.bookmarkurl').val(),
+                		bookmarkdesc:$('.bookmarkdesc').val(),
+                		bookmarkrule:$('.bookmarkrule').val(),
+                		bookmarkbgcolor:$('.bookmarkbgcolor').val(),
+                		bookmarkfontcolor:$('.bookmarkfontcolor').val(),
+						
+				};
+				layer.load();
+				$.post("/admin/api/addBookMark",option,function(data,status){
+					console.log(data);
+					if(data.resCode =="000001"){
+						layer.closeAll();
+						layer.alert(data.message,function(){
+							 window.location.reload();
+						})
+					}else{
+						layer.closeAll();
+						layer.alert(data.data);
+					}
+				})
+			})
+		}
      function initList(){
     	 $('.initList').click(function(){
     	     window.location.reload();
@@ -140,8 +259,9 @@
     		})
      }
      function loadTable(){
-    		layui.use('table', function(){
+    		layui.use(['table','form'], function(){
     			  table = layui.table;
+    			  var form = layui.form;
     			  table.render({
     				id:'projectList',
     				elem: '#projectList',
@@ -150,8 +270,8 @@
     				url: '/admin/api/findBookList',
     				limit:15,
     				request: {
-    				     pageName: 'page',
-    				     limitName: 'limit'
+    				     pageName: 'pageNo',
+    				     limitName: 'pageSize'
     				},
     				page: { 
     			        layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
@@ -165,6 +285,8 @@
     			    	 {field: 'labelname', title: '标签名称', width:180},
     			    	 {field: 'iconrul', title: 'ICONURL', width:180},
     			    	 {field: 'bookmarkname', title: '书签名称', width:80},
+    			    	 {field: 'bookmarkbgcolor', title: '背景色', width:80},
+    			    	 {field: 'bookmarkfontcolor', title: '字体颜色', width:80},
     			    	 {field: 'bookmarkurl', title: '书签URL', width:180},
     			    	 {field: 'bookmarkdesc', title: '书签简介', width:180},
     			    	 {field: 'bookmarkrule', title: '书签权限', width:80,templet:function(type){console.log(type);if(type.bookmarkrule=="0"){return "登录可见"} return "游客可见"}},
@@ -204,6 +326,26 @@
     			        })
     			        layer.close(index);
     			      });
+    			    }
+    			   	if(obj.event === 'edit'){
+    			   		console.log(obj)
+    			   		$('.optionid').val(obj.data.id);
+    	 		   		$(".typename option[value=" + obj.data.typeid + "]").attr('selected', "selected");   
+    			   		 $(".labelname option[value=" + obj.data.labelid + "]").attr('selected', "selected")
+    			   		$('.bookmarkname').val(obj.data.bookmarkname);
+    			   		$('.iconrul').val(obj.data.iconrul);
+    			   		$('.bookmarkurl').val(obj.data.bookmarkurl);
+    			   		 $(".bookmarkrule option[value=" + obj.data.bookmarkrule + "]").attr('selected', "selected");   
+    			   		$('.bookmarkfontcolor').val(obj.data.bookmarkfontcolor);
+    			   		$('.bookmarkbgcolor').val(obj.data.bookmarkbgcolor);
+                		$('#iconrulpre').attr("src",obj.data.iconrul);
+    			   		form.render('select');
+    			   		layer.open({
+    			   		  type: 1,
+    			   		  skin: 'layui-layer-rim', 
+    			   		  area: ['520px', '540px'], 
+    			   		  content: $('.updateData')
+    			   		});
     			    }
     			  });
     			  

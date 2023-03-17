@@ -22,6 +22,7 @@ import com.flower.navigation.config.Global;
 import com.flower.navigation.dao.BookMarkDao;
 import com.flower.navigation.entity.BookmarkEntity;
 import com.flower.navigation.entity.UserEntity;
+import com.flower.navigation.utils.DateUtils;
 import com.flower.navigation.utils.StringUtil;
 
 @Service
@@ -52,6 +53,7 @@ public class BookMarkService {
 				if(seachDate != null && StringUtil.isString(seachDate.getBookmarkname())) {
 					predicate.getExpressions().add(criteriaBuilder.like(root.get("bookmarkname"), "%"+seachDate.getBookmarkname()+"%"));
 				}
+//				query.orderBy(criteriaBuilder.desc(root.get("id")));
 				return predicate;
 			}};
 			Page<BookmarkEntity> findAll = bookMarkDao.findAll(specification,of);
@@ -86,8 +88,7 @@ public class BookMarkService {
 	}
 	
 	public AjaxEntity addBookData(BookmarkEntity data) {
-		String time =Long.toString( new Date().getTime());
-		data.setCreatetime(time);
+		data.setCreatetime(DateUtils.getDate("yyyy-MM-dd HH:mm:ss"));
 		bookMarkDao.save(data);
 		return new AjaxEntity(Global.ajax_success, Global.ajax_option_success, data);
 	}

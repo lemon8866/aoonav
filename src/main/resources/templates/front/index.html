@@ -5,8 +5,8 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<title th:text="${sitename}"></title>
-		<link rel="Shortcut icon" th:href="${siteicon}">
+		<title th:text="${site.sitename}"></title>
+		<link rel="Shortcut icon" th:href="${site.siteicon}">
 		<link rel="stylesheet" type="text/css" href="/static/front/css/default.css">
 		<link rel="stylesheet" type="text/css" href="/static/front/css/search-form.css">
 		<link rel="stylesheet" type="text/css" href="/static/front/css/style.css" />
@@ -17,7 +17,7 @@
 	    <script type="text/javascript" src="/static/front/js/search_ajx.js"></script>
 	</head>
 
-	<body>
+	<body th:style="'background-image:url(' + ${site.stitebg} + ');'">
         <div id="web">
         	<!--搜索框-->
 			<form onsubmit="submitFn(this, event);">
@@ -39,12 +39,12 @@
 		</div>
 		<!--快捷搜索栏-->
 		<div id="kj">
-			<div id="jk_a">
+			<div id="jk_a" th:style="'background:' + ${site.navcolor}">
 				<ul id="ul1">
 
 				</ul><br>
 			</div>
-			<div id="kj_z">
+			<div id="kj_z" th:style="'background:' + ${site.navbodycolor}">
 
 			
 
@@ -98,12 +98,16 @@
 		        	   for(var k in data){
 		        		   var key = k;
 		        		   var label =  key.split("_")[1];
-			        	   tabHtml+="<li class='labelName' data-index='"+index+"'><a>"+label+"</a></li>"
+		        		   var bgcolor =  key.split("_")[2];
+		        		   var fontcolor =  key.split("_")[3];
+			        	   tabHtml+="<li class='labelName' style='background:"+bgcolor+";' data-index='"+index+"'><a style='color:"+fontcolor+";'>"+label+"</a></li>"
 			        	   index++;
 			        	   var list =  data[k];
 			        	   LabelHtml += '<ul class="top11">';
 			        	   for(var i = 0;i<list.length;i++){
-			        		   LabelHtml+='<li class="kj_li hint--top" aria-label="'+list[i].bookmarkdesc+'"><a class="kj_a" href="'+list[i].bookmarkurl+'" rel="nofollow" target="_blank"><div class="kj_icon" style="background-image:url('+list[i].iconrul+');"></div>'+list[i].bookmarkname+'</a></li>'
+			        		   var labelbgcolor =  list[i].bookmarkbgcolor;
+			        		   var labelfontcolor = list[i].bookmarkfontcolor;
+			        		   LabelHtml+='<li class="kj_li hint--top" style="background:'+labelbgcolor+';color:'+labelfontcolor+'" aria-label="'+list[i].bookmarkdesc+'"><a class="kj_a" href="'+list[i].bookmarkurl+'" style="color:'+labelfontcolor+'" rel="nofollow" target="_blank"><div class="kj_icon" style="background-image:url('+list[i].iconrul+');"></div>'+list[i].bookmarkname+'</a></li>'
 			        	   }
 			        	   LabelHtml += '</ul>';
 		        	   }

@@ -161,7 +161,8 @@ body {
 #kj #jk_a { 
 	margin: 0 auto;
 	width: 85%;
-	height: 50px;
+	min-height: 50px;
+	line-height:50px;
 	padding: 5px;
 	background: #f3f3f359;
 	border-radius: 10px;

@@ -6,8 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.persistence.Transient;
 
 import com.flower.navigation.common.DataEntity;
 
@@ -33,6 +37,7 @@ public class BookmarkEntity extends DataEntity<BookmarkEntity> implements Serial
 	
 	private String labelname;
 	
+
 	private String iconrul;
 	
 	private String bookmarkname;
@@ -42,6 +47,10 @@ public class BookmarkEntity extends DataEntity<BookmarkEntity> implements Serial
 	private String bookmarkdesc;
 	
 	private String bookmarkrule;
+	
+	private String bookmarkbgcolor;
+	
+	private String bookmarkfontcolor;
 	
 	private String createtime;
 
@@ -132,6 +141,24 @@ public class BookmarkEntity extends DataEntity<BookmarkEntity> implements Serial
 	public void setLabelname(String labelname) {
 		this.labelname = labelname;
 	}
+
+	public String getBookmarkbgcolor() {
+		return bookmarkbgcolor;
+	}
+
+	public void setBookmarkbgcolor(String bookmarkbgcolor) {
+		this.bookmarkbgcolor = bookmarkbgcolor;
+	}
+
+	public String getBookmarkfontcolor() {
+		return bookmarkfontcolor;
+	}
+
+	public void setBookmarkfontcolor(String bookmarkfontcolor) {
+		this.bookmarkfontcolor = bookmarkfontcolor;
+	}
+
+
 
 	
 	

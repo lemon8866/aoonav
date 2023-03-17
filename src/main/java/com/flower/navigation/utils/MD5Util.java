@@ -3,6 +3,10 @@ package com.flower.navigation.utils;
 import java.security.MessageDigest;
 
 public class MD5Util {
+	
+	public static void main(String[] args) {
+		System.out.println(MD5Util.MD5("123456"));
+	}
 	public final static String MD5(String pwd) {
 		// 用于加密的字符
 		char md5String[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };

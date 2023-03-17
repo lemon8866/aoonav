@@ -11,6 +11,7 @@
         <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="/static/js/xadmin.js"></script>
         <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/js/common.js"></script>
         
         <!--[if lt IE 9]>
           <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -29,14 +30,45 @@
                     </div>
                     <div class="layui-form-item">
                         <label  class="layui-form-label"><span >站点ICON</label>
+                       
                         <div class="layui-input-inline">
-                            <input type="text" id="siteicon" name="siteicon" autocomplete="off" class="layui-input" th:value="${site.siteicon}"></div>
+                            <input type="text" id="siteicon" name="siteicon" autocomplete="off" class="layui-input" th:value="${site.siteicon}">      	
+                        </div>
+                        <div class="layui-input-inline">
+                        <img id="siteiconpre" alt="" th:src="${site.siteicon}" width="80px" height="80px" style=" position: relative; top: -22px; left: 30px; ">
+                        </div>
+                          <div class="layui-input-inline">
+                        	&nbsp;<button type="button" class="layui-btn" id="uploadBtu">上传</button>
+                        </div>
+                  </div>
+                    <div class="layui-form-item">
+                        <label  class="layui-form-label"><span >站点背景</label>
+                       
+                        <div class="layui-input-inline">
+                            <input type="text" id="stitebg" name="stitebg" autocomplete="off" class="layui-input" th:value="${site.stitebg}">      	
+                        </div>
+                        <div class="layui-input-inline">
+                        <img id="sitebgpre" alt="" th:src="${site.stitebg}" width="180px"  style=" position: relative; top: -22px; left: 12px; ">
+                        </div>
+                          <div class="layui-input-inline">
+                        	&nbsp;<button type="button" class="layui-btn" id="uploadBgBtu">上传</button>
+                        </div>
                     </div>
                     
                     <div class="layui-form-item">
                         <label  class="layui-form-label"><span >站点介绍</label>
                         <div class="layui-input-inline">
                             <input type="text" id="sitedesc" name="sitedesc" autocomplete="off" class="layui-input" th:value="${site.sitedesc}"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label  class="layui-form-label"><span >导航标签背景色</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="navcolor" name="navcolor" autocomplete="off" class="layui-input" th:value="${site.navcolor}"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label  class="layui-form-label"><span >导航列表背景色</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="navbodycolor" name="navbodycolor" autocomplete="off" class="layui-input" th:value="${site.navbodycolor}"></div>
                     </div>
                     
                     <div class="layui-form-item">
@@ -73,20 +105,47 @@
     		        layer = layui.layer;
     		 });
     		submitData();
+    		uploadSite();
     	})
+    	function uploadSite(){
+    		uploadFile("#uploadBtu",function(res){
+    			if(res != null && res.resCode == "000001"){
+        			$('#siteicon').val(res.record);
+            		$('#siteiconpre').attr("src",res.record);
+        		}
+    		});
+    		uploadFile("#uploadBgBtu",function(res){
+    			if(res != null && res.resCode == "000001"){
+        			$('#stitebg').val(res.record);
+            		$('#sitebgpre').attr("src",res.record);
+        		}
+    		})
+    		
+    	
+    	}
 	    function submitData(){
     		$('#submitData').click(function(){
     			var siteid = $('#siteid').val();
     			var sitename = $('#sitename').val();
     			var siteicon = $('#siteicon').val();
+    			var stitebg = $('#stitebg').val();
     			var sitedesc = $('#sitedesc').val();
     			var siterule = $('#siterule').val();
+    			var navcolor = $('#navcolor').val();
+    			var navfontcolor = $('#navfontcolor').val();
+    			var navbodycolor = $('#navbodycolor').val();
+    			var navbodyfontcolor = $('#navbodyfontcolor').val();
     			var option = {
     					id:siteid,
     					sitename:sitename,
     					siteicon:siteicon,
+    					stitebg:stitebg,
     					sitedesc:sitedesc,
-    					siterule:siterule
+    					siterule:siterule,
+    					navcolor:navcolor,
+    					navfontcolor:navfontcolor,
+    					navbodycolor:navbodycolor,
+    					navbodyfontcolor:navbodyfontcolor
     			}
     			console.log(option)
     			layer.load();

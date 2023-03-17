@@ -25,7 +25,13 @@ public class SiteEntity implements Serializable {
 	
 	private String sitename;
 	
+	private String navcolor;
+	
+	private String navbodycolor;
+	
 	private String siteicon;
+	
+	private String stitebg;
 	
 	private String sitedesc;
 	
@@ -70,7 +76,31 @@ public class SiteEntity implements Serializable {
 	public void setSitedesc(String sitedesc) {
 		this.sitedesc = sitedesc;
 	}
-	
+
+	public String getNavcolor() {
+		return navcolor;
+	}
+
+	public void setNavcolor(String navcolor) {
+		this.navcolor = navcolor;
+	}
+
+	public String getNavbodycolor() {
+		return navbodycolor;
+	}
+
+	public void setNavbodycolor(String navbodycolor) {
+		this.navbodycolor = navbodycolor;
+	}
+
+	public String getStitebg() {
+		return stitebg;
+	}
+
+	public void setStitebg(String stitebg) {
+		this.stitebg = stitebg;
+	}
+
 	
 
 }
