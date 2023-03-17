@@ -7,6 +7,7 @@
     <title>未开放</title>
 </head>
 <body>
-    <div style=" display: inline-block; width: 100%; text-align: center; margin-top: 25%; ">未对外开放</div>
+    <div style=" display: inline-block; width: 100%; text-align: center; margin-top: 25%; ">未对外开放</div><br>
+   	<div style=" display: inline-block; width: 100%; text-align: center; margin-top: 28%; " th:if="${session.user_login_session == null}" class="login" onclick="window.open('/admin/login','_self')">去登录</div>
 </body>
 </html>

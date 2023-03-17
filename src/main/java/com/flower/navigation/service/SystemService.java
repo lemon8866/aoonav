@@ -52,7 +52,7 @@ public class SystemService {
 			findByUsername.setLasttime(Long.toString( date.getTime()));
 			userDao.save(findByUsername);
 			logger.info("用户"+userEntity.getUsername()+"登录成功");
-			request.getSession().setAttribute(Global.user_session_key, findByUsername);
+			request.getSession().setAttribute(Global.user_session_key, findByUsername+Long.toString(System.currentTimeMillis()));
 			return new AjaxEntity(Global.ajax_success, Global.ajax_login_success_message, null);
 		}
 		logger.info("用户"+userEntity.getUsername()+"登录失败");
