@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.flower.navigation.common.AjaxEntity;
@@ -24,6 +25,8 @@ public class SystemService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	
 
 	/**  
 	
@@ -52,7 +55,7 @@ public class SystemService {
 			findByUsername.setLasttime(Long.toString( date.getTime()));
 			userDao.save(findByUsername);
 			logger.info("用户"+userEntity.getUsername()+"登录成功");
-			request.getSession().setAttribute(Global.user_session_key, findByUsername+Long.toString(System.currentTimeMillis()));
+			request.getSession().setAttribute(Global.user_session_key, findByUsername);
 			return new AjaxEntity(Global.ajax_success, Global.ajax_login_success_message, null);
 		}
 		logger.info("用户"+userEntity.getUsername()+"登录失败");
