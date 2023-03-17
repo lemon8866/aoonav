@@ -145,7 +145,7 @@ body {
 	border-radius: 5px;
 }
 #list li a:hover{
-	background:#e8eaed;
+	background:#e8eaed !important;
 	border-radius: 5px;
 }
 
@@ -159,6 +159,7 @@ body {
 }
 
 #kj #jk_a { 
+	display: inline-block;
 	margin: 0 auto;
 	width: 85%;
 	min-height: 50px;
@@ -201,6 +202,7 @@ body {
 
 
 #kj #kj_z {
+	display: inline-block;
 	margin: 0 auto;
 	width: 85%;
 	height: 250px;
@@ -212,7 +214,7 @@ body {
 #kj #kj_z .kj_li {
 	float: left;
 	margin: 10px 0 0 15px;
-	width: 120px;
+	min-width: 120px;
 	height: 40px;
 	border-radius: 10px;
 	background: #61a6ab30;
@@ -330,4 +332,7 @@ body {
 }
 .typeSwitch .labelbox{
 	cursor: pointer;
+}
+#kj li{
+	cursor: url("/static/image/cursor.png"),auto !important;
 }
