@@ -1,4 +1,4 @@
-FROM --platform=linux/arm64 openjdk:21-slim-buster
+FROM openjdk:8-jdk-alpine3.9
 VOLUME ["/tmp","/app"]
 COPY static/ /home/app/static/
 COPY db /home/app/db/
