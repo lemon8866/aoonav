@@ -86,9 +86,9 @@ public class SystemService {
 	 * @return
 	 */
 	public String uploadFile(MultipartFile  file, HttpServletRequest req,String path) {
-		String attribute = (String) req.getSession().getAttribute("id");
+		UserEntity attribute = (UserEntity) req.getSession().getAttribute(Global.user_session_key);
 		String date = DateUtils.getDate("yyyy/MM/dd");
-		String uploadpath =attribute+"/"+path+"/"+date+"/";
+		String uploadpath =attribute.getUsername()+"/"+path+"/"+date+"/";
 		FileUtils.createDirectory(fileSavePath+uploadpath);
 		String oldName = file.getOriginalFilename();
         String newName = UUID.randomUUID().toString() +

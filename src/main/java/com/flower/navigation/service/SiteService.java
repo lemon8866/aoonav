@@ -31,7 +31,9 @@ public class SiteService {
 	}
 	
 	public AjaxEntity saveData(SiteEntity site) {
-		siteDao.save(site);
+		if(site.getSiterule() !=null) {
+			siteDao.save(site);
+		}
 		return new AjaxEntity(Global.ajax_option_success, "操作成功", site);
 	}
 
