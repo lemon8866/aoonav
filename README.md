@@ -27,8 +27,9 @@
 
 ```
 基于spring boot+sqlite 构建   docker 基础镜像为openjdk:8-jdk-alpine3.9
-前端使用了 https://github.com/xiaolanqqai/xiaolanqqai.github.io 模版
-
+前端 https://github.com/xiaolanqqai/xiaolanqqai.github.io 模版、
+https://github.com/WebStackPage/WebStackPage.github.io模版
+可在站点设置中进行切换  切换到WebStackPage模版
 容器有一些测试数据 自行删除即可
 ```
 
