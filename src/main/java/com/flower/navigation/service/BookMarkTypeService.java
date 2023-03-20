@@ -3,6 +3,8 @@ package com.flower.navigation.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.flower.navigation.common.AjaxEntity;
@@ -21,7 +23,11 @@ public class BookMarkTypeService {
 		return new AjaxEntity(Global.ajax_option_success, "操作成功", data);
 	}
 	public List<BookmarkTypeEntity>  findAll(){
-		return bookMarkTypeDao.findAll();
+		PageRequest of= PageRequest.of(0,999);
+		Page<BookmarkTypeEntity> findAll = bookMarkTypeDao.findAll(of);
+		return findAll.getContent();
+		
+		
 	}
 	
 	public AjaxEntity delData(BookmarkTypeEntity data) {
