@@ -111,6 +111,13 @@ public class SiteEntity implements Serializable {
 		this.sitetheme = sitetheme;
 	}
 
+	@Override
+	public String toString() {
+		return "SiteEntity [id=" + id + ", sitename=" + sitename + ", navcolor=" + navcolor + ", navbodycolor="
+				+ navbodycolor + ", siteicon=" + siteicon + ", stitebg=" + stitebg + ", sitedesc=" + sitedesc
+				+ ", sitetheme=" + sitetheme + ", siterule=" + siterule + "]";
+	}
+
 	
 
 }

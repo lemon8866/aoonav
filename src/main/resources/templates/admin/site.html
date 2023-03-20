@@ -80,10 +80,21 @@
                             </select>    
                         </div>
                     </div>
-                  
+                  	
+                  	<div class="layui-form-item">
+                        <label for="siterule" class="layui-form-label">站点主题</label>
+                        <div class="layui-input-inline">
+                            <select id="sitetheme" name="sitetheme">
+                                <option value="xiaolanqqai" th:selected="${site.sitetheme} eq 'xiaolanqqai'">xiaolanqqai</option>
+                                <option value="webstackpage" th:selected="${site.sitetheme} eq 'webstackpage'">webstackpage</option>
+                            </select>    
+                        </div>
+                    </div>
+                  	
+                  	
                     <div class="layui-form-item">
                         <label  class="layui-form-label"></label>
-                        <button class="layui-btn" id="submitData" type="button">修改</button></div>
+                        <button class="layui-btn" id="submitSite" type="button">修改</button></div>
                         
                      <div class="layui-form-item">
                         <label  class="layui-form-label" style=" width: 20%; text-align: left; "> 
@@ -124,7 +135,7 @@
     	
     	}
 	    function submitData(){
-    		$('#submitData').click(function(){
+    		$('#submitSite').click(function(){
     			var siteid = $('#siteid').val();
     			var sitename = $('#sitename').val();
     			var siteicon = $('#siteicon').val();
@@ -135,6 +146,7 @@
     			var navfontcolor = $('#navfontcolor').val();
     			var navbodycolor = $('#navbodycolor').val();
     			var navbodyfontcolor = $('#navbodyfontcolor').val();
+    			var sitetheme = $('#sitetheme').val();
     			var option = {
     					id:siteid,
     					sitename:sitename,
@@ -145,9 +157,9 @@
     					navcolor:navcolor,
     					navfontcolor:navfontcolor,
     					navbodycolor:navbodycolor,
-    					navbodyfontcolor:navbodyfontcolor
+    					navbodyfontcolor:navbodyfontcolor,
+    					sitetheme:sitetheme
     			}
-    			console.log(option)
     			layer.load();
     			$.post("/admin/api/saveSite",option,function(result){
     				layer.closeAll();

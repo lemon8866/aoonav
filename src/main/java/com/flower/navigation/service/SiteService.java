@@ -31,6 +31,7 @@ public class SiteService {
 	}
 	
 	public AjaxEntity saveData(SiteEntity site) {
+		System.out.println(site.toString());
 		if(site.getSiterule() !=null) {
 			siteDao.save(site);
 		}
