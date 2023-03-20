@@ -49,7 +49,12 @@ public class IndexController {
 			List<BookmarkTypeEntity> findAll = bookMarkTypeService.findAll();
 			model.addAttribute("list", findAll);
 		}
-		return "front/xiaolanqqai/index";
+		if(null != data.getSitetheme()) {
+			return "front/"+data.getSitetheme()+"/index";
+		}else {
+			return "front/xiaolanqqai/index";
+		}
+		
 	}
 	
 	

@@ -35,6 +35,8 @@ public class SiteEntity implements Serializable {
 	
 	private String sitedesc;
 	
+	private String sitetheme;
+	
 	private String siterule;
 
 	public Integer getId() {
@@ -99,6 +101,14 @@ public class SiteEntity implements Serializable {
 
 	public void setStitebg(String stitebg) {
 		this.stitebg = stitebg;
+	}
+
+	public String getSitetheme() {
+		return sitetheme;
+	}
+
+	public void setSitetheme(String sitetheme) {
+		this.sitetheme = sitetheme;
 	}
 
 	
