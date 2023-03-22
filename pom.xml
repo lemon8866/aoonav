@@ -16,7 +16,6 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<docker.image.prefix>qingfeng2336</docker.image.prefix>
-		<snakeyaml.version>2.0</snakeyaml.version>
 	</properties>
 	<dependencies>
 		<dependency>
