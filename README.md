@@ -43,15 +43,19 @@ https://github.com/WebStackPage/WebStackPage.github.io模版
 可在站点设置中进行切换  切换到WebStackPage模版
 容器有一些测试数据 自行删除即可
 ```
-
+```
 docker hub 中的构建镜像使用的  alpine 官方最新镜像 如有升级可使用src/main/docker/buildx 中自行升级构建
 
 项目对于java 版本要求最低是java8
 
-使用的SQLite 数据库 数据库未进行加密  可自行选择db工具打开编辑或者进行迁移申请导出等
+使用的SQLite 数据库 数据库未进行加密  可自行选择db工具打开编辑或者进行迁移升级导出等
 
-其他就没了  docker hub 中没有在线更新的功能
+其他就没了  docker hub 的镜像 运行后 中没有在线更新的功能
 
+本项目 没有在线检查更新功能！
+
+docker 镜像已经支持多架构了！arm 也可以用了
+```
 
 ## java 运行方式
   在Releases下载压缩包 解压运行
