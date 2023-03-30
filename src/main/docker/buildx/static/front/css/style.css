@@ -1,0 +1,338 @@
+/*涓绘鏋�*/
+body{
+	background-image: url("/static/image/bg.jpg")
+}
+#web {
+	margin: 0 auto;
+}
+
+/*鍔犺浇鍔ㄧ敾*/
+
+#loading {
+	background-color: #bd4932;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	z-index: 1;
+	margin-top: 0px;
+	top: 0px;
+}
+
+#loading-center {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+#loading-center-absolute {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	height: 200px;
+	width: 200px;
+	margin-top: -100px;
+	margin-left: -100px;
+}
+
+#object {
+	width: 80px;
+	height: 80px;
+	background-color: #FFF;
+	-webkit-animation: animate 1s infinite ease-in-out;
+	animation: animate 1s infinite ease-in-out;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 60px;
+}
+
+@-webkit-keyframes animate {
+	0% {
+		-webkit-transform: perspective(160px);
+	}
+	50% {
+		-webkit-transform: perspective(160px) rotateY(-180deg);
+	}
+	100% {
+		-webkit-transform: perspective(160px) rotateY(-180deg) rotateX(-180deg);
+	}
+}
+
+@keyframes animate {
+	0% {
+		transform: perspective(160px) rotateX(0deg) rotateY(0deg);
+		-webkit-transform: perspective(160px) rotateX(0deg) rotateY(0deg);
+	}
+	50% {
+		transform: perspective(160px) rotateX(-180deg) rotateY(0deg);
+		-webkit-transform: perspective(160px) rotateX(-180deg) rotateY(0deg);
+	}
+	100% {
+		transform: perspective(160px) rotateX(-180deg) rotateY(-180deg);
+		-webkit-transform: perspective(160px) rotateX(-180deg) rotateY(-180deg);
+	}
+}
+
+/*澶撮儴*/
+
+#top {}
+
+/*鎬诲唴瀹�*/
+
+body {
+	margin: 0;
+	overflow: hidden;
+}
+
+#web {
+	position: fixed;
+	z-index: 2;
+	top: 90px;
+	width: 100%;
+    /*height: 658px;
+    line-height: 500px;
+    text-align: center;
+    border: 1px solid #000;
+    background-color: #FFF;*/
+}
+
+#web #top_logo {
+	margin: 0 auto;
+	width: 210px;
+	height: 70px;
+}
+
+#web #top_logo .logo-item {
+	position: absolute;
+        display: block;
+        width: 210px;
+        height: 70px;
+}
+
+/*鎼滅储ajx*/
+
+#search_ajx {
+	position: fixed;
+	z-index: 1;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        margin-top: 300px;
+        left:50%;
+}
+
+#search_ajx ul {
+	text-align: left;
+	
+}
+
+#list{
+	width:453px;
+	border-radius: 5px;
+/* 	display:none; */
+	background: #fff;
+}
+#list li{
+	margin-top: 2px;
+	line-height:36px;
+	border-radius: 5px;
+}
+#list li a{
+	font-size:14px;
+	color:#000;
+	text-decoration:none;
+	display:block;
+	padding-left: 20px;
+	border-radius: 5px;
+}
+#list li a:hover{
+	background:#e8eaed !important;
+	border-radius: 5px;
+}
+
+
+/*蹇嵎瀵艰埅鏍�*/
+#kj {
+	position: fixed;
+	z-index: 1;
+	top: 350px;
+	width: 100%;
+}
+
+#kj #jk_a { 
+	display: inline-block;
+	margin: 0 auto;
+	width: 85%;
+	min-height: 50px;
+	line-height:50px;
+	padding: 5px;
+	background: #f3f3f359;
+	border-radius: 10px;
+	margin-bottom: 10px;
+}
+
+#kj #jk_a #ul1 li { 
+	margin: 5px 0 0 15px;
+	float: left;
+	width: 120px;
+	height: 40px;
+	border-radius: 10px;
+	background: #61a6ab30;
+	text-align: center;
+	align-content: center;
+        line-height: 40px;
+	font-size: 14px;
+	cursor: pointer;
+	text-decoration: none;
+}
+#kj #jk_a #ul1 li a,a:hover{
+	text-decoration: none;
+}
+
+#kj #jk_a #ul1 li:hover { 
+	background: #86b8b1;
+}
+
+.top11 {
+	display: none;
+}
+
+#ul1 {}
+
+
+
+
+#kj #kj_z {
+	display: inline-block;
+	margin: 0 auto;
+	width: 85%;
+	height: 250px;
+	padding: 5px;
+	background: #f3f3f359;
+	border-radius: 10px;
+}
+
+#kj #kj_z .kj_li {
+	float: left;
+	margin: 10px 0 0 15px;
+	min-width: 120px;
+	height: 40px;
+	border-radius: 10px;
+	background: #61a6ab30;
+}
+
+#kj #kj_z .kj_li:hover {
+/* 	float: left;
+	width: 121px;
+	height: 41px;
+	border-radius: 10px; */
+	background: #86b8b1;
+}
+
+#kj #kj_z .kj_li .kj_a {
+	
+	padding: 10px;
+	font-size: 14px;
+	color: #fff;
+	text-align: left;
+	font-weight: 400;
+}
+
+#kj #kj_z a{
+	display: block;
+}
+
+#kj #kj_z .kj_li .kj_icon {
+	margin-right: 4px;
+	float: left;
+        width: 20px;
+        height: 20px;
+        background-position: center;
+        background-size: contain;
+        border-radius: 4px;
+}
+
+/*搴曢儴*/
+
+#bot {
+	position: fixed;
+	z-index: 1;
+	bottom: 0;
+	width: 100%;
+}
+
+#bot #music {
+	float: left;
+	margin: 5px;
+	width: 300px;
+	height: 54px;
+}
+
+#bot #bot_right {
+	float: right;
+	bottom: 1px;
+}
+
+#bot #bot_right #about {
+	float: left;
+	margin: 22px 5px 5px ;
+	width: 32px;
+	height: 32px;
+	border-radius: 20px;
+	background: #ffffffbf;
+}
+
+#bot #bot_right #github {
+	float: left;
+	margin: 22px 10px 5px;
+}
+
+#about:hover .tin {
+	opacity:1;
+	z-index:5;
+	visibility:visible
+}
+
+.tin {
+	color:#1b2226;
+	background:#ffffffbf;
+	position:absolute;
+	right: 10px;
+	top: -35px;
+	padding:1px;
+	height:40px;
+	width:200px;
+	border-radius: 5px;
+	box-sizing:border-box;
+	opacity:0;
+	visibility:hidden;
+	z-index:-1;
+	transition:opacity .13s ease-in-out,width .13s ease-in-out
+}
+.footer{
+	position: absolute;
+    bottom: 0.35rem;
+    z-index: 9999;
+    width: 100%;
+    text-align: center;
+   
+}
+.footer .theme,.login{
+	display: inline-block;
+    color: #1d1c1b;
+    cursor: pointer;
+    margin: 0 0.8rem;
+}
+.typeSwitch{
+    position: absolute;
+    bottom: 1.5rem;
+    z-index: 9999;
+    width: 100%;
+    text-align: center;
+    color: #1d1c1b;
+}
+.typeSwitch .labelbox{
+	cursor: pointer;
+}
+#kj li{
+	cursor: url("/static/image/cursor.png"),auto !important;
+}
