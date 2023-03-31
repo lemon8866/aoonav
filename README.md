@@ -27,6 +27,12 @@
 后来又使用过Homarr 很好的一个导航 但是没有登录功能 需要自己加一层nginx
 
 ```
+## 演示截图
+<img src="https://s2.loli.net/2023/03/31/9Ebrv7mtWFZaxkY.png" title="" alt="admin2.png" width="265"><img src="https://s2.loli.net/2023/03/31/WfwNkgur64cpDBF.png" title="" alt="admin3.png" width="265">
+
+<img src="https://s2.loli.net/2023/03/31/rSkwBisLWQYJtbv.png" title="" alt="qd.png" width="265"><img src="https://s2.loli.net/2023/03/31/mpzT3ewDskf2Cic.png" title="" alt="admin1.png" width="265">
+
+<img title="" src="https://s2.loli.net/2023/03/31/Zy49mG1XYUHhvlz.jpg" alt="qd2.jpg" width="265"><img src="https://s2.loli.net/2023/03/31/RN7cBWYDSlZzuPb.png" title="" alt="admin4.png" width="265">
 
 ## 开发
 
