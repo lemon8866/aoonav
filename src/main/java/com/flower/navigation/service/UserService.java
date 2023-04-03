@@ -6,9 +6,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
 import com.flower.navigation.common.AjaxEntity;
 import com.flower.navigation.common.RequestEntity;
 import com.flower.navigation.config.Global;
@@ -28,7 +24,7 @@ import com.flower.navigation.utils.StringUtil;
 @Service
 public class UserService {
 	
-	private Logger logger = LoggerFactory.getLogger(UserService.class);
+//	private Logger logger = LoggerFactory.getLogger(UserService.class);
 		
 	@Autowired
 	private UserDao userDao;
@@ -43,6 +39,7 @@ public class UserService {
 	 * @return  
 	
 	 */  
+	@SuppressWarnings("serial")
 	public AjaxEntity findUserList(RequestEntity res) {
 		int page = res.getPage()==  null ?0:res.getPage();
 		int limit = res.getLimit() == null?15:res.getLimit();

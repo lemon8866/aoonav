@@ -10,7 +10,6 @@ import com.flower.navigation.entity.BookmarkLabelEntity;
 
 public class DataUtil {
 	
-	@SuppressWarnings("unlikely-arg-type")
 	public static Map<String, List<BookmarkEntity>> dataTransferred(List<BookmarkEntity> data, List<BookmarkLabelEntity> label){
 		 Map<String, List<BookmarkEntity>>  res = new HashMap<String, List<BookmarkEntity>>();
 		 Map<Integer, BookmarkLabelEntity> data2 = DataUtil.data(label);

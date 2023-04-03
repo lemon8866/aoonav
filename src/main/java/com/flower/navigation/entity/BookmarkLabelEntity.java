@@ -11,6 +11,10 @@ import javax.persistence.TableGenerator;
 
 import com.flower.navigation.common.DataEntity;
 
+/**
+ * @author flower
+ * 书签标签  
+ */
 @Entity
 @Table(name = "biz_bookmark_label")
 public class BookmarkLabelEntity extends DataEntity<BookmarkLabelEntity> implements Serializable {

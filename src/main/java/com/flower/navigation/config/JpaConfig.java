@@ -14,6 +14,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+/**
+ * 
+ * 这里主要是jpa 配置 优先级最高
+ * @author flower
+ *
+ */
 @Configuration
 @EnableJpaRepositories(
 		// 扫描 Repository 文件 （接口）
@@ -50,7 +56,7 @@ public class JpaConfig {
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
         hibernateJpaVendorAdapter.setGenerateDdl(true); // 是否支持ddl
-        hibernateJpaVendorAdapter.setShowSql(true); // 是否控制台输入打印执行SQL语句
+        hibernateJpaVendorAdapter.setShowSql(false); // 是否控制台输入打印执行SQL语句
         hibernateJpaVendorAdapter.setDatabasePlatform("com.enigmabridge.hibernate.dialect.SQLiteDialect");
         return hibernateJpaVendorAdapter;
     }

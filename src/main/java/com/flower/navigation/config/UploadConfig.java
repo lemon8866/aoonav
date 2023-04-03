@@ -5,6 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * 
+ * 上传文件配置
+ * @author flower
+ *
+ */
 @Configuration
 public class UploadConfig implements WebMvcConfigurer {
 	

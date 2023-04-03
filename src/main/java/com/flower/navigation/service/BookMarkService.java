@@ -1,8 +1,6 @@
 package com.flower.navigation.service;
 
-import java.util.Date;
 import java.util.List;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -11,17 +9,13 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.flower.navigation.common.AjaxEntity;
-import com.flower.navigation.common.RequestEntity;
 import com.flower.navigation.config.Global;
 import com.flower.navigation.dao.BookMarkDao;
 import com.flower.navigation.entity.BookmarkEntity;
-import com.flower.navigation.entity.UserEntity;
 import com.flower.navigation.utils.DateUtils;
 import com.flower.navigation.utils.StringUtil;
 
@@ -32,6 +26,7 @@ public class BookMarkService {
 	private BookMarkDao bookMarkDao;
 
 	
+	@SuppressWarnings("serial")
 	public AjaxEntity findPage(BookmarkEntity res) {
 		PageRequest of= PageRequest.of(res.getPageNo(), res.getPageSize());
 		Specification<BookmarkEntity> specification = new Specification<BookmarkEntity>() {
@@ -60,6 +55,7 @@ public class BookMarkService {
 			return new AjaxEntity(Global.ajax_success, "数据获取成功", findAll);
 	}
 	
+	@SuppressWarnings("serial")
 	public List<BookmarkEntity> findList(BookmarkEntity res) {
 		PageRequest of= PageRequest.of(0, 9999);
 		Specification<BookmarkEntity> specification = new Specification<BookmarkEntity>() {

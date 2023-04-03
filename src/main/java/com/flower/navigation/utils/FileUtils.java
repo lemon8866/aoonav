@@ -413,6 +413,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 	 * @param file entry文件名
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private static String getEntryName(String dirPath, File file) {
 		String dirPaths = dirPath;
 		if (!dirPaths.endsWith(File.separator)) {

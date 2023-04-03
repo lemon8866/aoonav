@@ -8,6 +8,13 @@ import org.sqlite.SQLiteDataSource;
 import javax.sql.DataSource;
 
 
+/**
+ * 
+ * 
+ * 数据库连接配置 读取sqlite db
+ * @author flower
+ *
+ */
 @Configuration
 public class DataSourceConfig {
     @Value("${db.url}")
@@ -15,7 +22,7 @@ public class DataSourceConfig {
 
 	@Bean(destroyMethod = "", name = "EmbeddedDataSource")
     public DataSource dataSource() {
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.sqlite.JDBC");
         dataSourceBuilder.url(dbUrl);
         dataSourceBuilder.type(SQLiteDataSource.class);

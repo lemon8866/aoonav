@@ -16,10 +16,7 @@ import org.springframework.stereotype.Service;
 import com.flower.navigation.common.AjaxEntity;
 import com.flower.navigation.config.Global;
 import com.flower.navigation.dao.BookMarkLabelDao;
-import com.flower.navigation.dao.BookMarkTypeDao;
-import com.flower.navigation.entity.BookmarkEntity;
 import com.flower.navigation.entity.BookmarkLabelEntity;
-import com.flower.navigation.entity.BookmarkTypeEntity;
 import com.flower.navigation.utils.DateUtils;
 import com.flower.navigation.utils.StringUtil;
 
@@ -29,6 +26,11 @@ public class BookMarkLabelService {
 	@Autowired
 	private BookMarkLabelDao bookMarkLabelDao;
 
+	/**
+	 * 保存书签
+	 * @param data
+	 * @return
+	 */
 	public AjaxEntity saveData(BookmarkLabelEntity data) {
 		data.setCreatetime(DateUtils.getDate("yyyy-MM-dd HH:mm:ss"));
 		bookMarkLabelDao.save(data);
@@ -42,6 +44,8 @@ public class BookMarkLabelService {
 		bookMarkLabelDao.deleteById(data.getId());
 		return new AjaxEntity(Global.ajax_option_success, "操作成功", null);
 	}
+	
+	@SuppressWarnings("serial")
 	public AjaxEntity findPage(BookmarkLabelEntity res) {
 		PageRequest of= PageRequest.of(res.getPageNo(), res.getPageSize());
 		Specification<BookmarkLabelEntity> specification = new Specification<BookmarkLabelEntity>() {
@@ -61,6 +65,8 @@ public class BookMarkLabelService {
 		Page<BookmarkLabelEntity> findAll = bookMarkLabelDao.findAll(specification,of);
 		return new AjaxEntity(Global.ajax_success, "数据获取成功", findAll);
 	}
+	
+	@SuppressWarnings("serial")
 	public List<BookmarkLabelEntity> findList(BookmarkLabelEntity res) {
 		PageRequest of= PageRequest.of(res.getPageNo(), 9999);
 		Specification<BookmarkLabelEntity> specification = new Specification<BookmarkLabelEntity>() {

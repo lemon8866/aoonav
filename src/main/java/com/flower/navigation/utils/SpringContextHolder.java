@@ -22,7 +22,8 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     /**
      * 从静态变量applicationContext中取得Bean, 自动转型为所赋值对象的类型.
      */
-    public static <T> T getBean(String name) {
+    @SuppressWarnings("unchecked")
+	public static <T> T getBean(String name) {
         assertContextInjected();
         return (T) applicationContext.getBean(name);
     }

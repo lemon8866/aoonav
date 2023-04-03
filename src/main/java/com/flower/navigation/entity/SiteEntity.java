@@ -9,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+/**
+ * @author flower
+ * 站点配置
+ */
 @Entity
 @Table(name = "biz_site")
 public class SiteEntity implements Serializable {
@@ -23,8 +27,14 @@ public class SiteEntity implements Serializable {
 	@TableGenerator(name = "biz_site", allocationSize = 1, table = "seq_common", pkColumnName = "seq_id", valueColumnName = "seq_count")
     private Integer id;
 	
+	/**
+	 * 站点名称
+	 */
 	private String sitename;
 	
+	/**
+	 * 
+	 */
 	private String navcolor;
 	
 	private String navbodycolor;

@@ -9,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+/**
+ * @author flower
+ * 书签类型  基本鸡肋的功能
+ */
 @Entity
 @Table(name = "biz_bookmark_type")
 public class BookmarkTypeEntity implements Serializable {
